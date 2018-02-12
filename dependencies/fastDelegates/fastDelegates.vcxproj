@@ -19,59 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="application\Application.hpp" />
-    <ClInclude Include="application\ApplicationSettings.hpp" />
-    <ClInclude Include="application\Settings.hpp" />
-    <ClInclude Include="event\events.hpp" />
-    <ClInclude Include="event\input\InputEvent.hpp" />
-    <ClInclude Include="event\input\InputEventSender.hpp" />
-    <ClInclude Include="event\input\KeyboardEvent.hpp" />
-    <ClInclude Include="event\input\MouseEvent.hpp" />
-    <ClInclude Include="event\Signal.hpp" />
-    <ClInclude Include="event\Slot.hpp" />
-    <ClInclude Include="event\window\WindowEventListener.hpp" />
-    <ClInclude Include="event\window\WindowEventSender.hpp" />
-    <ClInclude Include="exceptions\Exception.hpp" />
-    <ClInclude Include="input\InputManager.hpp" />
-    <ClInclude Include="input\InputMap.hpp" />
-    <ClInclude Include="input\KeyboardKey.hpp" />
-    <ClInclude Include="input\MouseKey.hpp" />
-    <ClInclude Include="logger\ILogger.hpp" />
-    <ClInclude Include="logger\Logger.hpp" />
-    <ClInclude Include="logger\to_string.hpp" />
-    <ClInclude Include="math\math.hpp" />
-    <ClInclude Include="common.hpp" />
-    <ClInclude Include="platform\stackTrace.hpp" />
-    <ClInclude Include="platform\windows\KeyboardTranslator_win32.hpp" />
-    <ClInclude Include="platform\windows\Logger_win32.hpp" />
-    <ClInclude Include="platform\windows\Timer_win32.hpp" />
-    <ClInclude Include="platform\windows\Window_win32.hpp" />
-    <ClInclude Include="timer\ITimer.hpp" />
-    <ClInclude Include="timer\Timer.hpp" />
-    <ClInclude Include="timer\TimeStep.hpp" />
-    <ClInclude Include="types.hpp" />
-    <ClInclude Include="math\Vector2.hpp" />
-    <ClInclude Include="window\IWindow.hpp" />
-    <ClInclude Include="window\Window.hpp" />
-    <ClInclude Include="window\WindowSettings.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="application\Application.cpp" />
-    <ClCompile Include="event\window\WindowEventListener.cpp" />
-    <ClCompile Include="exceptions\Exception.cpp" />
-    <ClCompile Include="input\InputManager.cpp" />
-    <ClCompile Include="input\InputMap.cpp" />
-    <ClCompile Include="logger\ILogger.cpp" />
-    <ClCompile Include="platform\windows\KeyboardTranslator_win32.cpp" />
-    <ClCompile Include="platform\windows\Logger_win32.cpp" />
-    <ClCompile Include="platform\windows\Timer_win32.cpp" />
-    <ClCompile Include="platform\windows\Window_win32.cpp" />
-    <ClCompile Include="window\IWindow.cpp" />
+    <ClInclude Include="include\FastDelegate.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{e21a92a9-fee3-4374-bd9d-7583844087fd}</ProjectGuid>
-    <RootNamespace>core</RootNamespace>
+    <ProjectGuid>{ee647933-27a1-474c-8ae6-5072d9640909}</ProjectGuid>
+    <RootNamespace>fastDelegates</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -120,20 +73,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(platform)\</OutDir>
-    <IntDir>$(SolutionDir)\build\$(ProjectName)\$(Configuration)\$(platform)\</IntDir>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(platform)</OutDir>
+    <IntDir>$(SolutionDir)\build\$(ProjectName)\$(Configuration)\$(platform)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(platform)\</OutDir>
-    <IntDir>$(SolutionDir)\build\$(ProjectName)\$(Configuration)\$(platform)\</IntDir>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(platform)</OutDir>
+    <IntDir>$(SolutionDir)\build\$(ProjectName)\$(Configuration)\$(platform)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(platform)\</OutDir>
-    <IntDir>$(SolutionDir)\build\$(ProjectName)\$(Configuration)\$(platform)\</IntDir>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(platform)</OutDir>
+    <IntDir>$(SolutionDir)\build\$(ProjectName)\$(Configuration)\$(platform)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(platform)\</OutDir>
-    <IntDir>$(SolutionDir)\build\$(ProjectName)\$(Configuration)\$(platform)\</IntDir>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(platform)</OutDir>
+    <IntDir>$(SolutionDir)\build\$(ProjectName)\$(Configuration)\$(platform)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -141,17 +94,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\fastDelegates\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
     </Link>
-    <Lib />
-    <Lib />
-    <CustomBuildStep>
-      <Command>/std:c++latest</Command>
-    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -159,17 +105,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\fastDelegates\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
     </Link>
-    <Lib />
-    <Lib />
-    <CustomBuildStep>
-      <Command>/std:c++latest</Command>
-    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -179,19 +118,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\fastDelegates\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
     </Link>
-    <Lib />
-    <Lib />
-    <CustomBuildStep>
-      <Command>/std:c++latest</Command>
-    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -201,19 +133,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\fastDelegates\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
     </Link>
-    <Lib />
-    <Lib />
-    <CustomBuildStep>
-      <Command>/std:c++latest</Command>
-    </CustomBuildStep>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

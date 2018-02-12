@@ -97,5 +97,5 @@ namespace phantom::core
 	}
 }
 #elif
-"NOT IMPLEMENTED YET"
+static_assert(false, "Not implemented yet");
 #endif
