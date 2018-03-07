@@ -16,7 +16,7 @@ namespace phantom::core
 
 	std::string Logger_win32::getTime_() noexcept
 	{
-		SYSTEMTIME time;
+		SYSTEMTIME time {};
 		GetSystemTime(&time);
 		return { std::to_string(time.wYear) + '/' + std::to_string(time.wMonth) + '/' + std::to_string(time.wDay) + ' '  + std::to_string(time.wHour) + ':' + std::to_string(time.wMinute) + ':' + std::to_string(time.wSecond) };
 	}

@@ -44,7 +44,7 @@ namespace phantom::core
 
 	void Window_win32::update() const noexcept
 	{
-		MSG msg;
+		MSG msg {};
 		while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) > 0)
 		{
 			TranslateMessage(&msg);
@@ -207,7 +207,7 @@ namespace phantom::core
 
 	vec2ui Window_win32::mousePosition() const noexcept
 	{
-		POINT position;
+		POINT position {};
 		GetCursorPos(&position);
 		ScreenToClient(hWnd_, &position);
 		return { static_cast<uint>(position.x), static_cast<uint>(position.y) };
@@ -228,7 +228,7 @@ namespace phantom::core
 
 	std::array<vec2ui, 2> Window_win32::mouseClipArea() const noexcept
 	{
-		RECT rect;
+		RECT rect {};
 		GetClipCursor(&rect);
 		vec2ui topLeft { static_cast<uint>(rect.left), static_cast<uint>(rect.top) };
 		vec2ui bottomRight { static_cast<uint>(rect.right), static_cast<uint>(rect.bottom) };
@@ -242,9 +242,8 @@ namespace phantom::core
 
 	bool Window_win32::isMouseVisible() const noexcept
 	{
-		CURSORINFO info;
+		CURSORINFO info {};
 		GetCursorInfo(&info);
-
 		return (info.flags == CURSOR_SHOWING);
 	}
 
@@ -270,8 +269,9 @@ namespace phantom::core
 			return { 0, 0 };
 		}
 
-		RECT rect;
+		RECT rect {};
 		GetClientRect(hWnd_, &rect);
+
 		return { static_cast<uint>(rect.right) - static_cast<uint>(rect.left), static_cast<uint>(rect.bottom) - static_cast<uint>(rect.top) };
 	}
 
@@ -283,8 +283,9 @@ namespace phantom::core
 			return { 0, 0 };
 		}
 
-		RECT rect;
+		RECT rect {};
 		GetWindowRect(hWnd_, &rect);
+
 		return { static_cast<uint>(rect.left), static_cast<uint>(rect.top) };
 	}
 
@@ -296,8 +297,9 @@ namespace phantom::core
 			return { 0, 0 };
 		}
 
-		RECT rect;
+		RECT rect {};
 		GetWindowRect(hWnd_, &rect);
+
 		return { static_cast<uint>(rect.right) - static_cast<uint>(rect.left), static_cast<uint>(rect.bottom) - static_cast<uint>(rect.top) };
 	}
 
@@ -336,7 +338,6 @@ namespace phantom::core
 		char buffer[256];
 		GetWindowTextA(hWnd_, buffer, sizeof(buffer));
 		return { buffer };
-
 	}
 
 	void Window_win32::setTitle(const std::string& title) const noexcept
@@ -359,7 +360,7 @@ namespace phantom::core
 		}
 		else
 		{
-			HANDLE handle = LoadImageA(0, path.c_str(), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE);
+			HANDLE handle = LoadImageA(nullptr, path.c_str(), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE);
 			if (handle)
 			{
 				if (hIcon_)
@@ -394,8 +395,7 @@ namespace phantom::core
 	{
 		if (!s_registered_)
 		{
-			WNDCLASSEXA wc;
-
+			WNDCLASSEXA wc {};
 			wc.cbSize = sizeof(wc);
 			wc.style = CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS;
 			wc.lpfnWndProc = static_cast<WNDPROC> (Window_win32::windowProc_callback_);
@@ -441,10 +441,14 @@ namespace phantom::core
 				}
 				case WM_SHOWWINDOW:
 				{
-					if (static_cast<bool>(wparam) == true)
+					if (static_cast<bool>(wparam))
+					{
 						window->signal_show.emit();
+					}
 					else
+					{
 						window->signal_hide.emit();
+					}
 					break;
 				}
 				case WM_SETFOCUS:
@@ -469,16 +473,16 @@ namespace phantom::core
 				}
 				case WM_MOVE:
 				{
-					uint posX = static_cast<uint>(LOWORD(lparam));
-					uint posY = static_cast<uint>(HIWORD(lparam));
+					auto posX = static_cast<uint>(LOWORD(lparam));
+					auto posY = static_cast<uint>(HIWORD(lparam));
 					vec2ui pos { posX, posY };
 					window->signal_move.emit(pos);
 					break;
 				}
 				case WM_SIZE:
 				{
-					uint width = static_cast<uint>(LOWORD(lparam));
-					uint height = static_cast<uint>(HIWORD(lparam));
+					auto width = static_cast<uint>(LOWORD(lparam));
+					auto height = static_cast<uint>(HIWORD(lparam));
 					vec2ui windowSize { width, height };
 					window->signal_resize.emit(windowSize);
 					break;

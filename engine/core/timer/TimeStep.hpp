@@ -7,7 +7,7 @@ namespace phantom::core
 	class TimeStep
 	{
 	public:
-		TimeStep(const float initialTime) : initialTime_(std::move(initialTime)) {}
+		explicit TimeStep(float initialTime) : initialTime_(std::move(initialTime)) {}
 
 		void update(const float currentTime)
 		{

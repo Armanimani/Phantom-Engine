@@ -10,7 +10,7 @@ namespace phantom::core
 	class Window_win32 : public IWindow
 	{
 	public:
-		Window_win32(std::unique_ptr<WindowSettings>& settings);
+		explicit Window_win32(std::unique_ptr<WindowSettings>& settings);
 
 		void create() override;
 		void update() const noexcept override;
@@ -29,14 +29,14 @@ namespace phantom::core
 		void maximize() const noexcept override;
 		void minimize() const noexcept override;
 		void restore() const noexcept override;
-		void fullscreen(const bool state = true) const noexcept override;
+		void fullscreen(bool state = true) const noexcept override;
 
 		bool isMinimized() const noexcept override;
 		bool isMaximized() const noexcept override;
 		bool isFullscreen() const noexcept override;
 
-		void resizable(const bool state = true) const noexcept override;
-		void borderless(const bool state = true) const noexcept override;
+		void resizable(bool state = true) const noexcept override;
+		void borderless(bool state = true) const noexcept override;
 
 		bool isResizable() const noexcept override;
 		bool isBorderless() const noexcept override;
@@ -47,7 +47,7 @@ namespace phantom::core
 		void clipMouse(const vec2ui& topLeft, const vec2ui& bottomRight) const noexcept override;
 		std::array<vec2ui, 2> mouseClipArea() const noexcept override;
 
-		void showMouse(const bool state = true) const noexcept override;
+		void showMouse(bool state = true) const noexcept override;
 		bool isMouseVisible() const noexcept override;
 
 		vec2ui clientSize() const noexcept override;

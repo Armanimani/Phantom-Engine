@@ -9,7 +9,7 @@ namespace phantom::core
 	class KeyboardTranslator_win32
 	{
 	public:
-		static KeyboardKey translate(const uint key) noexcept;
+		static KeyboardKey translate(uint key) noexcept;
 
 	private:
 		static std::map<const uint, KeyboardKey> database_;

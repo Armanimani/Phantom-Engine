@@ -11,7 +11,7 @@ namespace phantom::core
 		{
 			Logger::instance();
 			Logger::instance().setLogToFile(true);
-
+			system_ = std::make_unique<System>();
 			settings_ = std::move(settings->application);
 			timer_ = std::make_unique<Timer>();
 			window_ = std::make_unique<Window>(settings->window);
@@ -78,9 +78,20 @@ namespace phantom::core
 		return UPS_;
 	}
 
+	float Application::getLastDrawTime() const noexcept
+	{
+		return lastDrawTime_;
+	}
+
+	float Application::getLastLogicTime() const noexcept
+	{
+		return lastLogicTime_;
+	}
+
 
 	void Application::init_()
 	{
+		system_->init();
 		appInit_();
 	}
 
@@ -99,6 +110,7 @@ namespace phantom::core
 		auto now = timer_->time();
 		TimeStep updateTimeStep(now);
 		TimeStep timeStep(now);
+		TimeStep drawTimeStep(now);
 
 		while (running_)
 		{
@@ -136,7 +148,10 @@ namespace phantom::core
 
 	void Application::update_(const float dt_s)
 	{
+		TimeStep timeStep(timer_->time());
 		appUpdate_();
+		timeStep.update(timer_->time());
+		lastLogicTime_ = timeStep.deltaTime_ms();
 	}
 
 	void Application::secondUpdate_()
@@ -146,14 +161,32 @@ namespace phantom::core
 
 	void Application::render_()
 	{
+		TimeStep timeStep(timer_->time());
 		appRender_();
+		timeStep.update(timer_->time());
+		lastDrawTime_ = timeStep.deltaTime_ms();
 	}
 
 	void Application::systemInit_()
 	{
 		Logger::instance().log_status("Initializing...");
+		
+		log_systemInformation_();
 
 		window_->create();
 		initialized_ = true;
 	}
+
+	void Application::log_systemInformation_() const noexcept
+	{
+		std::string system { "*****System Information*****\n" };
+		const float B_MB = 1.0f / 1024.0f / 1024.0f;
+		auto mem = system_->memory();
+		std::string memory { "-Memory:\n\t-Physical Memory:\n\t\tTotal:  " + std::to_string(mem->total_physicalMemory * B_MB) + "MB\n\t\tFree:  " + std::to_string(mem->free_physicalMemory * B_MB) + "MB / " + std::to_string(static_cast<float>(mem->free_physicalMemory) / static_cast<float>(mem->total_physicalMemory) * 100.0f) + "%\n\t\tUsed:  " + std::to_string(mem->used_physicalMemory * B_MB) + "MB / " + std::to_string(static_cast<float>(mem->used_physicalMemory) / static_cast<float>(mem->total_physicalMemory) * 100.0f) + "%\n\t\tApp:  " + std::to_string(mem->app_physicalMemory * B_MB) + "MB\n\t-Virtual Memory:\n\t\tTotal:  " + std::to_string(mem->total_virtualMemory * B_MB) + "MB\n\t\tFree:  " + std::to_string(mem->free_virtualMemory * B_MB) + "MB / " + std::to_string(static_cast<float>(mem->free_virtualMemory) / static_cast<float>(mem->total_virtualMemory) * 100.0f) + "%\n\t\tUsed:  " + std::to_string(mem->used_virtualMemory * B_MB) + "MB / " + std::to_string(static_cast<float>(mem->used_virtualMemory) / static_cast<float>(mem->total_virtualMemory) * 100.0f) + "%\n\t\tApp:  " + std::to_string(mem->app_virtualMemory * B_MB) + "MB\n" };
+
+		std::string paths { "-Paths:\n\t-Temporary Directory: " + system_->temporaryPath() };
+
+		Logger::instance().log_information(system + memory + paths);
+	}
+
 }

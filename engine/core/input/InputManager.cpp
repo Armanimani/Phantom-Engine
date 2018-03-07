@@ -55,52 +55,52 @@ namespace phantom::core
 
 	bool InputManager::isKeyboardKeyDown(const KeyboardKey key) const noexcept
 	{
-		return (keyboardState_[static_cast<uint>(key)]) ? true : false;
+		return keyboardState_[static_cast<uint>(key)];
 	}
 
 	bool InputManager::isKeyboatdKeyUp(const KeyboardKey key) const noexcept
 	{
-		return (keyboardState_[static_cast<uint>(key)]) ? false : true;
+		return !keyboardState_[static_cast<uint>(key)];
 	}
 
 	bool InputManager::isKeyboardKeyHeld(const KeyboardKey key) const noexcept
 	{
-		return (keyboardState_[static_cast<uint>(key)] && prevKeyboardState_[static_cast<uint>(key)]) ? true : false;
+		return (keyboardState_[static_cast<uint>(key)] && prevKeyboardState_[static_cast<uint>(key)]);
 	}
 
 	bool InputManager::wasKeyboardKeyDown(const KeyboardKey key) const noexcept
 	{
-		return (prevKeyboardState_[static_cast<uint>(key)]) ? true : false;
+		return prevKeyboardState_[static_cast<uint>(key)];
 	}
 
 	bool InputManager::wasKeyboardKeyUp(const KeyboardKey key) const noexcept
 	{
-		return (prevKeyboardState_[static_cast<uint>(key)]) ? false : true;
+		return !prevKeyboardState_[static_cast<uint>(key)];
 	}
 
 	bool InputManager::isMouseButtonDown(const MouseKey key) const noexcept
 	{
-		return (mouseState_[static_cast<uint>(key)]) ? true : false;
+		return mouseState_[static_cast<uint>(key)];
 	}
 
 	bool InputManager::isMouseButtonUp(const MouseKey key) const noexcept
 	{
-		return (mouseState_[static_cast<uint>(key)]) ? false : true;
+		return !mouseState_[static_cast<uint>(key)];
 	}
 
 	bool InputManager::isMouseBottonHeld(const MouseKey key) const noexcept
 	{
-		return (mouseState_[static_cast<uint>(key)] && prevMouseState_[static_cast<uint>(key)]) ? true : false;
+		return (mouseState_[static_cast<uint>(key)] && prevMouseState_[static_cast<uint>(key)]);
 	}
 
 	bool InputManager::wasMouseBottonDown(const MouseKey key) const noexcept
 	{
-		return (prevMouseState_[static_cast<uint>(key)]) ? true : false;
+		return prevMouseState_[static_cast<uint>(key)];
 	}
 
 	bool InputManager::wasMouseBottonUp(const MouseKey key) const noexcept
 	{
-		return (prevMouseState_[static_cast<uint>(key)]) ? false : true;
+		return !prevMouseState_[static_cast<uint>(key)];
 	}
 
 	phantom::core::vec2ui InputManager::mousePosition() const noexcept

@@ -15,7 +15,7 @@ namespace phantom::core
 
 	float Timer_win32::time() noexcept
 	{
-		LARGE_INTEGER newTime;
+		LARGE_INTEGER newTime {};
 		QueryPerformanceCounter(&newTime);
 		return static_cast<float>(newTime.QuadPart - startingTime_.QuadPart) / (timeFrequency_.QuadPart);
 	}

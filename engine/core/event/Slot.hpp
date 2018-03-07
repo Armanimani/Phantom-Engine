@@ -13,8 +13,7 @@ namespace phantom::core
 		using Type_t = Slot<T>;
 		using SignatureType_t = T;
 
-		//Slot() {};
-		Slot(T function) : delegate_(function) {}
+		explicit Slot(T function) : delegate_(function) {}
 		template<typename Object, typename MemFnPtr>
 		Slot(Object* obj, MemFnPtr ptr) : delegate_(obj, ptr) {}
 

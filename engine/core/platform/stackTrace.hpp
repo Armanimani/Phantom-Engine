@@ -12,7 +12,7 @@
 
 namespace phantom::core
 {
-	std::vector<std::string> stackTrace()
+	inline std::vector<std::string> stackTrace()
 	{
 		static std::mutex m;
 		std::lock_guard<std::mutex> lock(m);
@@ -20,7 +20,7 @@ namespace phantom::core
 		HANDLE process = GetCurrentProcess();
 		HANDLE thread = GetCurrentThread();
 
-		CONTEXT context;
+		CONTEXT context {};
 		memset(&context, 0, sizeof(CONTEXT));
 
 		#ifdef _M_IX86
@@ -39,10 +39,10 @@ namespace phantom::core
 		RtlCaptureContext(&context);
 		#endif
 
-		SymInitialize(process, NULL, TRUE);
+		SymInitialize(process, nullptr, static_cast<BOOL>(true));
 
 		DWORD image;
-		STACKFRAME64 stackframe;
+		STACKFRAME64 stackframe {};
 		ZeroMemory(&stackframe, sizeof(STACKFRAME64));
 
 		#ifdef _M_IX86
@@ -74,21 +74,21 @@ namespace phantom::core
 		#endif
 
 		std::vector<std::string> ret;
-		while (StackWalk64(image, process, thread, &stackframe, &context, NULL, SymFunctionTableAccess64, SymGetModuleBase64, NULL))
+		while (StackWalk64(image, process, thread, &stackframe, &context, nullptr, SymFunctionTableAccess64, SymGetModuleBase64, nullptr) == TRUE)
 		{
 			char buffer[sizeof(SYMBOL_INFO) + MAX_SYM_NAME * sizeof(TCHAR)];
-			PSYMBOL_INFO symbol = (PSYMBOL_INFO) buffer;
+			auto symbol = (PSYMBOL_INFO)(buffer);
 			symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
 			symbol->MaxNameLen = MAX_SYM_NAME;
 
 			DWORD64 displacement = 0;
-			if (SymFromAddr(process, stackframe.AddrPC.Offset, &displacement, symbol))
+			if (SymFromAddr(process, stackframe.AddrPC.Offset, &displacement, symbol) == TRUE)
 			{
-				ret.push_back(symbol->Name);
+				ret.emplace_back(symbol->Name);
 			}
 			else
 			{
-				ret.push_back("?????");
+				ret.emplace_back("?????");
 			}
 		}
 

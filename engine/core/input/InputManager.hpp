@@ -27,17 +27,17 @@ namespace phantom::core
 		void update() noexcept;
 		void clear() noexcept;
 
-		bool isKeyboardKeyDown(const KeyboardKey key) const noexcept;
-		bool isKeyboatdKeyUp(const KeyboardKey key) const noexcept;
-		bool isKeyboardKeyHeld(const KeyboardKey key) const noexcept;
-		bool wasKeyboardKeyDown(const KeyboardKey key) const noexcept;
-		bool wasKeyboardKeyUp(const KeyboardKey key) const noexcept;
+		bool isKeyboardKeyDown(KeyboardKey key) const noexcept;
+		bool isKeyboatdKeyUp(KeyboardKey key) const noexcept;
+		bool isKeyboardKeyHeld(KeyboardKey key) const noexcept;
+		bool wasKeyboardKeyDown(KeyboardKey key) const noexcept;
+		bool wasKeyboardKeyUp(KeyboardKey key) const noexcept;
 
-		bool isMouseButtonDown(const MouseKey key) const noexcept;
-		bool isMouseButtonUp(const MouseKey key) const noexcept;
-		bool isMouseBottonHeld(const MouseKey key) const noexcept;
-		bool wasMouseBottonDown(const MouseKey key) const noexcept;
-		bool wasMouseBottonUp(const MouseKey key) const noexcept;
+		bool isMouseButtonDown(MouseKey key) const noexcept;
+		bool isMouseButtonUp(MouseKey key) const noexcept;
+		bool isMouseBottonHeld(MouseKey key) const noexcept;
+		bool wasMouseBottonDown(MouseKey key) const noexcept;
+		bool wasMouseBottonUp(MouseKey key) const noexcept;
 
 		vec2ui mousePosition() const noexcept;
 		uint mouseWheel() const noexcept;

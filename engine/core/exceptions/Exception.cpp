@@ -4,7 +4,7 @@
 
 namespace phantom::core
 {
-	IException::IException(const std::string message, const std::string type) : message_(std::move(message)), type_(std::move(type))
+	IException::IException(std::string message, std::string type) : message_(std::move(message)), type_(std::move(type))
 	{
 		calculateStack_();
 		what_ = std::string("\n\t***** " + type_ + " *****\n\t[info]: " + message_ + '\n' + stack_);

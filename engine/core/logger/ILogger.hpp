@@ -22,8 +22,8 @@ namespace phantom::core
 			MESSAGE_LEVEL = 1 << 4,
 		};
 
-		void setLevel(const LogLevel level) noexcept;
-		void setLogToFile(const bool state = true);
+		void setLevel(LogLevel level) noexcept;
+		void setLogToFile(bool state = true);
 
 		template<typename T>
 		void log_error(T&& data) noexcept;
@@ -46,25 +46,25 @@ namespace phantom::core
 		LogLevel level_ { static_cast<LogLevel>(0xFF)};
 		bool logToFile_ { true };
 
-		std::string to_string_(const LogLevel level);
-		std::string get_stamp_(const LogLevel level);
+		std::string to_string_(LogLevel level);
+		std::string get_stamp_(LogLevel level);
 
-		void log_(const std::string& data, const LogLevel level) noexcept;
+		void log_(const std::string& data, LogLevel level) noexcept;
 		void console_log_(const std::string& message) noexcept;
 		void file_log_(const std::string& message) noexcept;
 
 	protected:
-		ILogger() {}
+		ILogger() = default;
 
 		std::ofstream file_;
 
 		virtual std::string getTime_() noexcept { return "NYI"; }
 
-		virtual void console_preLog_(const LogLevel level) noexcept {}
-		virtual void console_postLog_(const LogLevel level) noexcept {}
+		virtual void console_preLog_(LogLevel level) noexcept = 0;
+		virtual void console_postLog_(LogLevel level) noexcept = 0;
 
-		virtual void file_preLog_(const LogLevel level) noexcept {}
-		virtual void file_postLog_(const LogLevel level) noexcept {}
+		virtual void file_preLog_(LogLevel level) noexcept = 0;
+		virtual void file_postLog_(LogLevel level) noexcept = 0;
 	};
 
 	inline

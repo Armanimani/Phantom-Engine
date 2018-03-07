@@ -14,8 +14,8 @@ namespace phantom::core
 	class IWindow : public WindowEventSender, public InputEventSender
 	{
 	public:
-		IWindow(std::unique_ptr<WindowSettings>& settings);
-		virtual ~IWindow() {}
+		explicit IWindow(std::unique_ptr<WindowSettings>& settings) : settings_(std::move(settings)) {}
+		virtual ~IWindow() = default;
 
 		IWindow(IWindow&& rhs) = delete;
 		IWindow(IWindow& rhs) = delete;
@@ -39,14 +39,14 @@ namespace phantom::core
 		virtual void maximize() const noexcept = 0;
 		virtual void minimize() const noexcept = 0;
 		virtual void restore() const noexcept = 0;
-		virtual void fullscreen(const bool state = true) const noexcept = 0;
+		virtual void fullscreen(bool state = true) const noexcept = 0;
 
 		virtual bool isMaximized() const noexcept = 0;
 		virtual bool isMinimized() const noexcept = 0;
 		virtual bool isFullscreen() const noexcept = 0;
 
-		virtual void resizable(const bool state = true) const noexcept = 0;
-		virtual void borderless(const bool state = true) const noexcept = 0;
+		virtual void resizable(bool state = true) const noexcept = 0;
+		virtual void borderless(bool state = true) const noexcept = 0;
 
 		virtual bool isResizable() const noexcept = 0;
 		virtual bool isBorderless() const noexcept = 0;
@@ -57,7 +57,7 @@ namespace phantom::core
 		virtual void clipMouse(const vec2ui& topRitopLeftght, const vec2ui& bottomRight) const noexcept = 0;
 		virtual std::array<vec2ui, 2> mouseClipArea() const noexcept = 0;
 
-		virtual void showMouse(const bool state = true) const noexcept = 0;
+		virtual void showMouse(bool state = true) const noexcept = 0;
 		virtual bool isMouseVisible() const noexcept = 0;
 
 		virtual vec2ui clientSize() const noexcept = 0;

@@ -28,7 +28,10 @@ namespace phantom::core
 
 		std::string getTime_() noexcept override;
 
-		void console_preLog_(const LogLevel level) noexcept override;
-		void console_postLog_(const LogLevel level) noexcept override;
+		void console_preLog_(LogLevel level) noexcept override;
+		void console_postLog_(LogLevel level) noexcept override;
+
+		void file_preLog_(LogLevel level) noexcept override {}
+		void file_postLog_(LogLevel level) noexcept override {}
 	};
 }

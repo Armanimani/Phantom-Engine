@@ -44,8 +44,12 @@
     <ClInclude Include="platform\stackTrace.hpp" />
     <ClInclude Include="platform\windows\KeyboardTranslator_win32.hpp" />
     <ClInclude Include="platform\windows\Logger_win32.hpp" />
+    <ClInclude Include="platform\windows\System_win32.hpp" />
     <ClInclude Include="platform\windows\Timer_win32.hpp" />
     <ClInclude Include="platform\windows\Window_win32.hpp" />
+    <ClInclude Include="system\ISystem.hpp" />
+    <ClInclude Include="system\system.hpp" />
+    <ClInclude Include="system\SystemMemoryInformation.hpp" />
     <ClInclude Include="timer\ITimer.hpp" />
     <ClInclude Include="timer\Timer.hpp" />
     <ClInclude Include="timer\TimeStep.hpp" />
@@ -64,9 +68,9 @@
     <ClCompile Include="logger\ILogger.cpp" />
     <ClCompile Include="platform\windows\KeyboardTranslator_win32.cpp" />
     <ClCompile Include="platform\windows\Logger_win32.cpp" />
+    <ClCompile Include="platform\windows\System_win32.cpp" />
     <ClCompile Include="platform\windows\Timer_win32.cpp" />
     <ClCompile Include="platform\windows\Window_win32.cpp" />
-    <ClCompile Include="window\IWindow.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

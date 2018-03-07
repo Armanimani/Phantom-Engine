@@ -12,12 +12,6 @@ namespace phantom::core
 		explicit Vector2(const T value) : x(value), y(value) {}
 		Vector2(const T m_x, const T m_y) : x(std::move(m_x)), y(std::move(m_y)) {}
 
-		Vector2(const Vector2& rhs) noexcept = default;
-		Vector2(Vector2&& rhs) noexcept = default;
-
-		Vector2& operator=(const Vector2& rhs) noexcept = default;
-		Vector2& operator=(Vector2&& rhs) noexcept = default;
-
 		Vector2 operator+() const noexcept;
 		Vector2 operator-() const noexcept;
 		Vector2 operator+(const Vector2& rhs) const noexcept;
